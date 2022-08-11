@@ -1,0 +1,17 @@
+{
+  "name": "YouTube Thumbnail Viewer",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "YouTube Thumbnail Viewer",
+  "host_permissions": [
+    "https://www.youtube.com/*"
+  ],
+  "content_scripts": [{
+    "matches": [
+      "https://www.youtube.com/watch*"
+    ],
+    "js": [
+      "content.js"
+    ]
+  }]
+}
