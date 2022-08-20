@@ -25,7 +25,9 @@ function setThumbimg() {
             // まだタイトルが用意されていなかったら設定しない
             return;
         }
-        let child = title.firstChild;
+        //let child = title.firstChild;
+        let child_list = title.getElementsByTagName('yt-formatted-string');
+        let child = child_list[0];
         child.prepend(thumbimg);
     }
 

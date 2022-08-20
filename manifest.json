@@ -1,6 +1,9 @@
 {
   "name": "YouTube Thumbnail Viewer",
   "version": "1.0.0",
+  "icons": {
+    "128": "128.png"
+  },
   "manifest_version": 3,
   "description": "YouTube Thumbnail Viewer",
   "host_permissions": [
