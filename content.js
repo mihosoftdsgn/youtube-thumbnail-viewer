@@ -1,7 +1,7 @@
 function getParam(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
         results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
@@ -32,7 +32,7 @@ function setThumbimg() {
     }
 
     // パラメータ取得
-    var param_v = getParam('v');
+    let param_v = getParam('v');
     // パラメータがなかったら処理しない
     if (param_v == null) {
         return;
@@ -44,18 +44,43 @@ function setThumbimg() {
     current_param_v = param_v;
 
     // 画像設定
-    var small_img = 'https://img.youtube.com/vi/'+param_v+'/default.jpg';
-    var big_img = 'https://img.youtube.com/vi/'+param_v+'/maxresdefault.jpg';
-    var xhr = new XMLHttpRequest();
+    let small_img = 'https://img.youtube.com/vi/'+param_v+'/default.jpg';
+    let big_img = 'https://img.youtube.com/vi/'+param_v+'/maxresdefault.jpg';
+    let xhr = new XMLHttpRequest();
     xhr.open("HEAD", big_img, false);
     xhr.send(null);
     if (xhr.status == 404) {
         big_img = 'https://img.youtube.com/vi/'+param_v+'/hqdefault.jpg';
     }
     // サムネイル画像を設定する
-    thumbimg.innerHTML = '<a href="'+big_img+'" target="_blank">'
-        + '<img src="'+small_img+'" style="position: relative; top: 0.2rem; height: 1.9rem; margin-right: 0.5rem;">'
-        + '</a>';
+    let tag = '<a href="'+big_img+'" target="_blank">'
+            + '<img src="'+small_img+'" style="position: relative; top: 0.2rem; height: 1.9rem; margin-right: 0.5rem;">'
+            + '</a>';
+    thumbimg.innerHTML = tag;
+
+    // サムネイル画像を右クリックした時、エンディング画像をトグル表示切り替えする
+    document.getElementById("thumbimg").oncontextmenu = function() {
+        let show_list = document.querySelectorAll('.ytp-ce-element-show');
+        if (show_list.length) {
+            show_list.forEach((element) => {
+                element.classList.remove('ytp-ce-element-show');
+                element.classList.add('ytp-ce-element-show-xxx');
+            });
+            return false;
+        }
+
+        let xxx_list = document.querySelectorAll('.ytp-ce-element-show-xxx');
+        if (xxx_list.length) {
+            xxx_list.forEach((element) => {
+                element.classList.remove('ytp-ce-element-show-xxx');
+                element.classList.add('ytp-ce-element-show');
+            });
+            return false;
+        }
+
+        return false;
+    }
+
 }
 
 // 読み込まれた時に更新する（２秒後）
