@@ -20,7 +20,10 @@ function setThumbimg() {
         thumbimg.setAttribute('class', 'style-scope yt-formatted-string');
 
         let h1_list = document.getElementsByTagName('h1');
-        let title = h1_list[1];
+        let h1_filter_list = Array.from(h1_list).filter(function(element) {
+            return element.classList.contains('ytd-watch-metadata')
+        })
+        let title = h1_filter_list[0];
         if (title == null) {
             // まだタイトルが用意されていなかったら設定しない
             return;
